@@ -10,5 +10,4 @@ Get-Content -Path $files2 #create a backup of s.properties (your main property o
 compare-object (get-content $files1) (get-content $files2) | select -ExpandProperty InputObject | out-file $files2  -append -Encoding utf8 #compares and pastes vars that do not exist into new original file
 
 
-Get-Content $files2 | Group-Object {$_.Split(' = ')[0] } | ForEach-Object {$_.Group[-1] } | Out-File $files3 -encoding utf8
-
+Get-Content $files2 | Group-Object {$_.Split(' = ')[0] } | ForEach-Object {$_.Group[-1] } | Where {$_ -notmatch '^#.*'} | Out-File $files3 -encoding utf8
